@@ -1,0 +1,11 @@
+[
+{
+  "modid": "traceit",
+  "name": "Trace It",
+  "description": "\"Where are those blocks/items from?\"",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/eofitg/TraceIt",
+  "authorList": ["eofitg"]
+}
+]
