@@ -9,6 +9,7 @@ Where are those blocks/items from?
 ### `/traceit <option>`
 
 - `toggle`
+- `bw`
 - `add`
 - `remove <value>`
 
