@@ -1,6 +1,7 @@
 package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
+import net.eofitg.traceit.util.BWUtil;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ public class TickListener {
     public void OnClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         if (PlayerUtil.containsNull()) return;
+        if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
 
         for (EntityPlayer p : PlayerUtil.getWorldPlayerList()) {
             if (PlayerUtil.isFakePlayer(p)) continue;

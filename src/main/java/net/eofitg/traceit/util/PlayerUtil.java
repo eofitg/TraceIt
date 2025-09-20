@@ -46,6 +46,10 @@ public class PlayerUtil {
         mc.thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "[TraceIt] " + msg));
     }
 
+    public static EntityPlayer getThePlayer() {
+        return mc.thePlayer;
+    }
+
     public static EntityPlayer getPlayerByName(String name) {
         return mc.theWorld.getPlayerEntityByName(name);
     }

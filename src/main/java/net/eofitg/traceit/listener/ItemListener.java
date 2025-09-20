@@ -1,6 +1,7 @@
 package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
+import net.eofitg.traceit.util.BWUtil;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -17,6 +18,7 @@ public class ItemListener {
 
     @SubscribeEvent
     public void OnPickupItem(PlayerEvent.ItemPickupEvent event) {
+        if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         ItemStack itemStack = event.pickedUp.getEntityItem();
         Item item = itemStack.getItem();
         EntityPlayer player = event.player;
@@ -37,6 +39,7 @@ public class ItemListener {
 
     @SubscribeEvent
     public void OnEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         if (!(event.entity instanceof EntityItem)) return;
         EntityItem entityItem = (EntityItem) event.entity;
         if (entityItem.getThrower() == null) return;

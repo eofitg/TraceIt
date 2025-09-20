@@ -18,7 +18,7 @@ import java.util.List;
 public class TraceItCommand extends CommandBase {
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
-            "toggle", "add", "remove"
+            "toggle", "bw", "add", "remove"
     );
 
     @Override
@@ -28,7 +28,7 @@ public class TraceItCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/traceit toggle|add|remove <value>";
+        return "/traceit toggle|bw|add|remove <value>";
     }
 
     @Override
@@ -52,6 +52,13 @@ public class TraceItCommand extends CommandBase {
                 boolean isEnabled = TraceIt.config.isEnabled();
                 String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
                 PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Mod " + status + EnumChatFormatting.GOLD + ".");
+                break;
+            }
+            case "bw": {
+                TraceIt.config.setOnlyInBw(!TraceIt.config.isOnlyInBw());
+                boolean isEnabled = TraceIt.config.isOnlyInBw();
+                String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Only activate in BW " + status + EnumChatFormatting.GOLD + ".");
                 break;
             }
             case "add": {

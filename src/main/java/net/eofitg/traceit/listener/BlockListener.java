@@ -1,6 +1,7 @@
 package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
+import net.eofitg.traceit.util.BWUtil;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +13,7 @@ public class BlockListener {
 
     @SubscribeEvent
     public void OnPlaceBlock(BlockEvent.PlaceEvent event) {
+        if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         Block block = event.placedBlock.getBlock();
         if (!TraceIt.config.blockContains(block)) return;
 
@@ -21,6 +23,7 @@ public class BlockListener {
 
     @SubscribeEvent
     public void OnBreakBlock(BlockEvent.BreakEvent event) {
+        if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         Block block = event.state.getBlock();
         if (!TraceIt.config.blockContains(block)) return;
 

@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 public class TraceItConfig {
 
     private boolean enabled = true;
+    private boolean onlyInBw = true;
     private final LinkedHashSet<String> objectList = new LinkedHashSet<>();
 
     public boolean isEnabled() {
@@ -16,6 +17,14 @@ public class TraceItConfig {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isOnlyInBw() {
+        return onlyInBw;
+    }
+
+    public void setOnlyInBw(boolean onlyInBw) {
+        this.onlyInBw = onlyInBw;
     }
 
     public LinkedHashSet<String> getObjectList() {
