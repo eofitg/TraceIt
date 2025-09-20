@@ -1,14 +1,46 @@
 package net.eofitg.traceit.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.WorldSettings;
+
+import java.util.List;
 
 public class PlayerUtil {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
+
+    public static boolean containsNull() {
+        return mc == null || mc.thePlayer == null || mc.theWorld == null;
+    }
+
+    public static List<EntityPlayer> getWorldPlayerList() {
+        return mc.theWorld.playerEntities;
+    }
+
+    public static NetworkPlayerInfo getPlayerInfo(EntityPlayer player) {
+        for (NetworkPlayerInfo info : mc.thePlayer.sendQueue.getPlayerInfoMap()) {
+            if (info.getGameProfile().getId().equals(player.getUniqueID())) {
+                return info;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isFakePlayer(EntityPlayer player) {
+        NetworkPlayerInfo playerInfo = getPlayerInfo(player);
+        if (playerInfo == null)
+            return true;
+
+        if (playerInfo.getGameType() == WorldSettings.GameType.SPECTATOR)
+            return true;
+
+        return playerInfo.getResponseTime() <= 0;
+    }
 
     public static void addMessage(String msg) {
         mc.thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.AQUA + "[TraceIt] " + msg));

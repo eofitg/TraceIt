@@ -6,6 +6,7 @@ import net.eofitg.traceit.command.TraceItCommand;
 import net.eofitg.traceit.config.TraceItConfig;
 import net.eofitg.traceit.listener.BlockListener;
 import net.eofitg.traceit.listener.ItemListener;
+import net.eofitg.traceit.listener.TickListener;
 import net.eofitg.traceit.util.Reference;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -39,7 +40,7 @@ public class TraceIt {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
-        registerListeners(new BlockListener(), new ItemListener());
+        registerListeners(new BlockListener(), new ItemListener(), new TickListener());
         registerCommands(new TraceItCommand());
     }
 
