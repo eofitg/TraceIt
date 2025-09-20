@@ -33,7 +33,11 @@ public class TickListener {
                 String n = EnumChatFormatting.BOLD + "" + EnumChatFormatting.GREEN + stackSize + EnumChatFormatting.RESET;
                 String dn = EnumChatFormatting.UNDERLINE + objName.substring("minecraft:".length());
                 String msg = EnumChatFormatting.BOLD + PlayerUtil.getColoredName(p) + EnumChatFormatting.RESET + " has " + n + " " + dn;
-                if (!lastMessageForPlayerObject.containsKey(mapKey) || !Objects.equals(lastMessageForPlayerObject.get(mapKey), msg)) {
+                if (!lastMessageForPlayerObject.containsKey(mapKey)) {
+                    lastMessageForPlayerObject.put(mapKey, msg);
+                    continue;
+                }
+                if (!Objects.equals(lastMessageForPlayerObject.get(mapKey), msg)) {
                     PlayerUtil.addMessage(msg);
                     lastMessageForPlayerObject.put(mapKey, msg);
                 }
