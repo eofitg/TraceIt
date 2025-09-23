@@ -3,6 +3,7 @@ package net.eofitg.traceit.listener;
 import net.eofitg.traceit.TraceIt;
 import net.eofitg.traceit.util.BWUtil;
 import net.eofitg.traceit.util.PlayerUtil;
+import net.eofitg.traceit.util.StringUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -33,13 +34,14 @@ public class TickListener {
                 String n = EnumChatFormatting.BOLD + "" + EnumChatFormatting.GREEN + stackSize + EnumChatFormatting.RESET;
                 String dn = EnumChatFormatting.UNDERLINE + objName.substring("minecraft:".length());
                 String msg = EnumChatFormatting.BOLD + PlayerUtil.getColoredName(p) + EnumChatFormatting.RESET + " has an item stack with " + n + " " + dn;
+                String pureMsg = StringUtil.stripColor(msg);
                 if (!lastMessageForPlayerObject.containsKey(mapKey)) {
-                    lastMessageForPlayerObject.put(mapKey, msg);
+                    lastMessageForPlayerObject.put(mapKey, pureMsg);
                     continue;
                 }
-                if (!Objects.equals(lastMessageForPlayerObject.get(mapKey), msg)) {
+                if (!Objects.equals(lastMessageForPlayerObject.get(mapKey), pureMsg)) {
                     PlayerUtil.addMessage(msg);
-                    lastMessageForPlayerObject.put(mapKey, msg);
+                    lastMessageForPlayerObject.put(mapKey, pureMsg);
                 }
             }
         }
