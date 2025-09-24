@@ -13,6 +13,7 @@ public class BlockListener {
 
     @SubscribeEvent
     public void OnPlaceBlock(BlockEvent.PlaceEvent event) {
+        if (!TraceIt.config.isEnabled()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         Block block = event.placedBlock.getBlock();
         if (!TraceIt.config.blockContains(block)) return;
@@ -23,6 +24,7 @@ public class BlockListener {
 
     @SubscribeEvent
     public void OnBreakBlock(BlockEvent.BreakEvent event) {
+        if (!TraceIt.config.isEnabled()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         Block block = event.state.getBlock();
         if (!TraceIt.config.blockContains(block)) return;

@@ -18,6 +18,7 @@ public class ItemListener {
 
     @SubscribeEvent
     public void OnPickupItem(PlayerEvent.ItemPickupEvent event) {
+        if (!TraceIt.config.isEnabled()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         ItemStack itemStack = event.pickedUp.getEntityItem();
         Item item = itemStack.getItem();
@@ -39,6 +40,7 @@ public class ItemListener {
 
     @SubscribeEvent
     public void OnEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (!TraceIt.config.isEnabled()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
         if (!(event.entity instanceof EntityItem)) return;
         EntityItem entityItem = (EntityItem) event.entity;

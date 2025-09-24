@@ -20,6 +20,7 @@ public class TickListener {
 
     @SubscribeEvent
     public void OnClientTick(TickEvent.ClientTickEvent event) {
+        if (!TraceIt.config.isEnabled()) return;
         if (event.phase != TickEvent.Phase.END) return;
         if (PlayerUtil.containsNull()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
