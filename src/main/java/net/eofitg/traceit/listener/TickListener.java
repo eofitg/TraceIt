@@ -2,6 +2,7 @@ package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
 import net.eofitg.traceit.util.BWUtil;
+import net.eofitg.traceit.util.ChatBoard;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.eofitg.traceit.util.StringUtil;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,9 +20,9 @@ public class TickListener {
     private static final HashMap<String, String> lastMessageForPlayerObject = new HashMap<>();
 
     @SubscribeEvent
-    public void OnClientTick(TickEvent.ClientTickEvent event) {
+    public void onRenderTick(TickEvent.RenderTickEvent event) {
+        if (event.phase != TickEvent.Phase.START) return;
         if (!TraceIt.config.isEnabled()) return;
-        if (event.phase != TickEvent.Phase.END) return;
         if (PlayerUtil.containsNull()) return;
         if (TraceIt.config.isOnlyInBw() && BWUtil.notIBw()) return;
 
@@ -41,7 +42,10 @@ public class TickListener {
                     continue;
                 }
                 if (!Objects.equals(lastMessageForPlayerObject.get(mapKey), pureMsg)) {
-                    PlayerUtil.addMessage(msg);
+                    if (TraceIt.config.isShowInChat())
+                        PlayerUtil.addMessage(msg);
+                    if (TraceIt.config.isShowInBoard())
+                        ChatBoard.addMessage(msg.replace("has an item stack with", "w/"));
                     lastMessageForPlayerObject.put(mapKey, pureMsg);
                 }
             }

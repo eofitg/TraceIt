@@ -9,6 +9,16 @@ public class TraceItConfig {
 
     private boolean enabled = true;
     private boolean onlyInBw = true;
+    private boolean showInChat = false;
+    private boolean showInBoard = true;
+    public boolean hideWhenGuiOpen = true;
+    public float scale = 1f;
+    public float xOffset = 0f;
+    public float yOffset = 0f;
+    public int size = 8;
+    public int align = 0;
+    public int spacing = 0;
+    public boolean shadow = true;
     private final LinkedHashSet<String> objectList = new LinkedHashSet<>();
 
     public boolean isEnabled() {
@@ -49,6 +59,22 @@ public class TraceItConfig {
 
     public void removeObject(String obj) {
         objectList.remove(obj);
+    }
+
+    public boolean isShowInChat() {
+        return showInChat;
+    }
+
+    public void setShowInChat(boolean showInChat) {
+        this.showInChat = showInChat;
+    }
+
+    public boolean isShowInBoard() {
+        return showInBoard;
+    }
+
+    public void setShowInBoard(boolean showInBoard) {
+        this.showInBoard = showInBoard;
     }
 
 }

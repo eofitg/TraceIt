@@ -2,6 +2,7 @@ package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
 import net.eofitg.traceit.util.BWUtil;
+import net.eofitg.traceit.util.ChatBoard;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -27,13 +28,19 @@ public class ItemListener {
         if (item instanceof ItemBlock) {
             Block block = ((ItemBlock) item).block;
             if (TraceIt.config.blockContains(block)) {
-                PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was picked up by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                if (TraceIt.config.isShowInChat())
+                    PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was picked up by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                if (TraceIt.config.isShowInBoard())
+                    ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " + " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + block.getLocalizedName());
             }
         }
 
         else {
             if (TraceIt.config.itemContains(itemStack)) {
-                PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName() + EnumChatFormatting.RESET + " was picked up by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                if (TraceIt.config.isShowInChat())
+                    PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName() + EnumChatFormatting.RESET + " was picked up by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                if (TraceIt.config.isShowInBoard())
+                    ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " + " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName());
             }
         }
     }
@@ -55,7 +62,10 @@ public class ItemListener {
             if (TraceIt.config.blockContains(block)) {
                 EntityPlayer player = PlayerUtil.getPlayerByName(entityItem.getThrower());
                 if (player != null) {
-                    PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was dropped by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                    if (TraceIt.config.isShowInChat())
+                        PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was dropped by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                    if (TraceIt.config.isShowInBoard())
+                        ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " - " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + block.getLocalizedName());
                 }
             }
         }
@@ -64,7 +74,10 @@ public class ItemListener {
             if (TraceIt.config.itemContains(itemStack)) {
                 EntityPlayer player = PlayerUtil.getPlayerByName(entityItem.getThrower());
                 if (player != null) {
-                    PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName() + EnumChatFormatting.RESET + " was dropped by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                    if (TraceIt.config.isShowInChat())
+                        PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName() + EnumChatFormatting.RESET + " was dropped by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+                    if (TraceIt.config.isShowInBoard())
+                        ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " - " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + itemStack.getDisplayName());
                 }
             }
         }

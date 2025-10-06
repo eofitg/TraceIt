@@ -18,7 +18,9 @@ import java.util.List;
 public class TraceItCommand extends CommandBase {
 
     private static final List<String> SUBCOMMANDS = Arrays.asList(
-            "toggle", "bw", "add", "remove"
+            "toggle", "bw", "chat", "board", "gui",
+            "scale", "x", "y", "size", "align", "spacing", "shadow",
+            "add", "remove"
     );
 
     @Override
@@ -28,7 +30,7 @@ public class TraceItCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/traceit toggle|bw|add|remove <value>";
+        return "/traceit toggle|bw|chat|board|gui|scale <value>|x <value>|y <value>|size <value>|align <value>|spacing <value>|shadow|add|remove <value>";
     }
 
     @Override
@@ -59,6 +61,104 @@ public class TraceItCommand extends CommandBase {
                 boolean isEnabled = TraceIt.config.isOnlyInBw();
                 String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
                 PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Only activate in BW " + status + EnumChatFormatting.GOLD + ".");
+                break;
+            }
+            case "chat": {
+                TraceIt.config.setShowInChat(!TraceIt.config.isShowInChat());
+                boolean isEnabled = TraceIt.config.isShowInChat();
+                String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Show in chat " + status + EnumChatFormatting.GOLD + ".");
+                break;
+            }
+            case "board": {
+                TraceIt.config.setShowInBoard(!TraceIt.config.isShowInBoard());
+                boolean isEnabled = TraceIt.config.isShowInBoard();
+                String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Show in board " + status + EnumChatFormatting.GOLD + ".");
+                break;
+            }
+            case "gui": {
+                TraceIt.config.hideWhenGuiOpen = !TraceIt.config.hideWhenGuiOpen;
+                boolean isEnabled = TraceIt.config.hideWhenGuiOpen;
+                String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Hide board when GUI open " + status + EnumChatFormatting.GOLD + ".");
+                break;
+            }
+            case "scale": {
+                if (args.length >= 2) {
+                    try {
+                        TraceIt.config.scale = Float.parseFloat(args[1]);
+                        PlayerUtil.addMessage("§eSet board scale: " + TraceIt.config.scale);
+                    } catch (NumberFormatException e) {
+                        PlayerUtil.addMessage("§cPlease enter a valid number!");
+                    }
+                } else {
+                    PlayerUtil.addMessage("§eCurrent board scale: " + TraceIt.config.scale);
+                }
+                break;
+            }
+            case "x": {
+                if (args.length >= 2) {
+                    try {
+                        TraceIt.config.xOffset = Float.parseFloat(args[1]);
+                        PlayerUtil.addMessage("§eSet board x offset: " + TraceIt.config.xOffset);
+                    } catch (NumberFormatException e) {
+                        PlayerUtil.addMessage("§cPlease enter a valid number!");
+                    }
+                } else {
+                    PlayerUtil.addMessage("§eCurrent board x offset: " + TraceIt.config.xOffset);
+                }
+                break;
+            }
+            case "y": {
+                if (args.length >= 2) {
+                    try {
+                        TraceIt.config.yOffset = Float.parseFloat(args[1]);
+                        PlayerUtil.addMessage("§eSet board y offset: " + TraceIt.config.yOffset);
+                    } catch (NumberFormatException e) {
+                        PlayerUtil.addMessage("§cPlease enter a valid number!");
+                    }
+                } else {
+                    PlayerUtil.addMessage("§eCurrent board y offset: " + TraceIt.config.yOffset);
+                }
+                break;
+            }
+            case "size": {
+                if (args.length >= 2) {
+                    try {
+                        TraceIt.config.size = Integer.parseInt(args[1]);
+                        PlayerUtil.addMessage("§eSet board stack size: " + TraceIt.config.size);
+                    } catch (NumberFormatException e) {
+                        PlayerUtil.addMessage("§cPlease enter a valid number!");
+                    }
+                } else {
+                    PlayerUtil.addMessage("§eCurrent board stack size: " + TraceIt.config.size);
+                }
+                break;
+            }
+            case "align": {
+                TraceIt.config.align = (TraceIt.config.align + 1) % 3;
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Text align changed.");
+                break;
+            }
+            case "spacing": {
+                if (args.length >= 2) {
+                    try {
+                        TraceIt.config.spacing = Integer.parseInt(args[1]);
+                        PlayerUtil.addMessage("§eSet text spacing: " + TraceIt.config.spacing);
+                    } catch (NumberFormatException e) {
+                        PlayerUtil.addMessage("§cPlease enter a valid number!");
+                    }
+                } else {
+                    PlayerUtil.addMessage("§eCurrent text spacing: " + TraceIt.config.spacing);
+                }
+                break;
+            }
+            case "shadow": {
+                TraceIt.config.shadow = !TraceIt.config.shadow;
+                boolean isEnabled = TraceIt.config.shadow;
+                String status = isEnabled ? EnumChatFormatting.GREEN + "enabled" : EnumChatFormatting.RED + "disabled";
+                PlayerUtil.addMessage(EnumChatFormatting.GOLD + "Show text shadow " + status + EnumChatFormatting.GOLD + ".");
                 break;
             }
             case "add": {

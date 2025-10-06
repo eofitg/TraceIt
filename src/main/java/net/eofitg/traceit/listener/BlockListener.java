@@ -2,6 +2,7 @@ package net.eofitg.traceit.listener;
 
 import net.eofitg.traceit.TraceIt;
 import net.eofitg.traceit.util.BWUtil;
+import net.eofitg.traceit.util.ChatBoard;
 import net.eofitg.traceit.util.PlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,10 @@ public class BlockListener {
         if (!TraceIt.config.blockContains(block)) return;
 
         EntityPlayer player = event.player;
-        PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was placed by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+        if (TraceIt.config.isShowInChat())
+            PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was placed by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+        if (TraceIt.config.isShowInBoard())
+            ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " placed " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + block.getLocalizedName());
     }
 
     @SubscribeEvent
@@ -30,7 +34,10 @@ public class BlockListener {
         if (!TraceIt.config.blockContains(block)) return;
 
         EntityPlayer player = event.getPlayer();
-        PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was broke by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+        if (TraceIt.config.isShowInChat())
+            PlayerUtil.addMessage(EnumChatFormatting.RESET + "" + EnumChatFormatting.UNDERLINE + block.getLocalizedName() + EnumChatFormatting.RESET + " was broke by " + EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player));
+        if (TraceIt.config.isShowInBoard())
+            ChatBoard.addMessage(EnumChatFormatting.BOLD + PlayerUtil.getColoredName(player) + EnumChatFormatting.RESET + " broke " + EnumChatFormatting.RESET + EnumChatFormatting.UNDERLINE + block.getLocalizedName());
     }
 
 }
