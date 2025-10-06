@@ -10,6 +10,14 @@ Where are those blocks/items from?
 
 - `toggle`
 - `bw`
+- `chat` / `board`
+- `gui`
+- `scale <value>`
+- `x <value>` / `y <value>`
+- `size <value>`
+- `align`
+- `spacing <value>`
+- `shadow`
 - `add`
 - `remove <value>`
 
